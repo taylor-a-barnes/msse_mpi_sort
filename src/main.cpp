@@ -16,7 +16,7 @@ int main(int argc, char *argv[]) {
 
   // Create a set of random values on each rank
   int nvalues_per_rank = 10;
-  std::vector<double> values(nvalues_per_rank);
+  std::vector<double> sortvec(nvalues_per_rank);
   for (int ivalue = 0; ivalue < nvalues_per_rank; ivalue++) {
     values[ivalue] = dist(mt);
   }
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]) {
     if ( irank == my_rank ) {
        std::cout << "Values on rank " << my_rank << std::endl;
        for ( int ivalue = 0; ivalue < nvalues_per_rank; ivalue++) {
-         std::cout << "   Index: " << ivalue << "   Value: " << values[ivalue] << std::endl;
+         std::cout << "   Index: " << ivalue << "   Value: " << sortvec[ivalue] << std::endl;
        }
        std::cout << std::flush;
     }
