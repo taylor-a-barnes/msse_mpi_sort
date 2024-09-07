@@ -18,7 +18,7 @@ int main(int argc, char *argv[]) {
   int nvalues_per_rank = 10;
   std::vector<double> sortvec(nvalues_per_rank);
   for (int ivalue = 0; ivalue < nvalues_per_rank; ivalue++) {
-    values[ivalue] = dist(mt);
+    sortvec[ivalue] = dist(mt);
   }
 
   // This is where you need to sort the values across all ranks
