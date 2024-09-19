@@ -17,6 +17,6 @@ Values on rank 2
 ```
 
 There are many different ways to do this.
-You must perform the calculation in a way that ensures that the amount of data required by each individual rank is independent of the total number of ranks (at least, beyond the first handful of ranks).
+You must perform the calculation in a way that ensures that the amount of data required by each individual rank is independent of the total number of ranks (at least, beyond the first 2-3 ranks).
 For example, you are **not** permitted to simply gather all of the data from every rank's `sortvec` onto rank `0` and then have rank `0` do the complete sort - aside from being computationally inefficient, that would be a wasteful way to handle memory resources.
 It might be helpful to know that there are [named algorithms](https://en.wikipedia.org/wiki/Odd%E2%80%93even_sort) for handling this type of problem.
