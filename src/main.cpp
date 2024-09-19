@@ -1,6 +1,7 @@
 #include<iostream>
 #include<random>
 #include<mpi.h>
+#include<bits/stdc++.h>
 
 int main(int argc, char *argv[]) {
   MPI_Init(&argc, &argv);
@@ -21,7 +22,15 @@ int main(int argc, char *argv[]) {
     sortvec[ivalue] = dist(mt);
   }
 
-  // This is where you need to sort the values across all ranks
+  // Sort the vector within the rank
+  // Note: the sort function could be useful to remember later
+  std::sort(sortvec.begin(), sortvec.end());
+
+  /* This is where you need to sort the values across all ranks
+     REMEMBER: Be careful to limit your use of memory.
+               You must not at any point have any rank store all the values of sortvec from all ranks
+               (unless world_size is very small - less than 3).
+  */
 
   // Print the final values
   // To ensure that everything is printed in the correct order, we loop over ranks
