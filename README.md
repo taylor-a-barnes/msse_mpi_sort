@@ -1,6 +1,7 @@
 # Sorting Values With MPI
 
-In `src/main.cpp`, you will find a code that initializes each rank with a random vector (named `sortvec`) of size `nvalues_per_rank`.  Your task is to sort the `sortvec` vectors across all ranks, so that all the values in `sortvec` for rank `1` are larger than those of rank `0`, all of the values in `sortvec` for rank `2` are larger than those of rank `1`, *etc*.
+In `src/main.cpp`, you will find a code that initializes each rank with a random vector (named `sortvec`) of size `nvalues_per_rank`.
+Your task is to use MPI to sort the `sortvec` vectors across all MPI ranks, so that all the values in `sortvec` for rank `1` are larger than those of rank `0`, all of the values in `sortvec` for rank `2` are larger than those of rank `1`, *etc*.
 Additionally, the values of `sortvec` for each rank should increase with increasing index.
 For example, if `nvalues_per_rank` is `2` and you run on three ranks, your sorted values might look like:
 
