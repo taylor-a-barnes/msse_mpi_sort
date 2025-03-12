@@ -16,7 +16,7 @@ jobs:
 
       - name: Build the code
         run: |
-          sudo apt-get install -y cmake g++ mpich
+          sudo apt-get install -y cmake g++ openmpi-bin libopenmpi-dev
 
       - name: Build the code
         run: |
@@ -28,15 +28,15 @@ jobs:
       - name: Run the code on a single rank
         run: |
           cd build
+          mpiexec --version
           mpiexec -n 1 ./mpisort
 
       - name: Run the code on three ranks
         run: |
           cd build
-          mpiexec -n 3 ./mpisort
+          mpiexec -n 3 --oversubscribe ./mpisort
 
       - name: Run the code on four ranks
         run: |
           cd build
-          mpiexec -n 4 ./mpisort
-
+          mpiexec -n 4 --oversubscribe ./mpisort
