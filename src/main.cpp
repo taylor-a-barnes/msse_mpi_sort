@@ -1,7 +1,9 @@
-#include<iostream>
-#include<random>
-#include<mpi.h>
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+#include <chrono>
+#include <iomanip>
+#include <iostream>
+#include <mpi.h>
+#include <random>
 
 int main(int argc, char *argv[]) {
   MPI_Init(&argc, &argv);
@@ -18,7 +20,7 @@ int main(int argc, char *argv[]) {
   // Create a set of random values on each rank
   int nvalues_per_rank = 10;
   std::vector<double> sortvec(nvalues_per_rank);
-  for (int ivalue = 0; ivalue < nvalues_per_rank; ivalue++) {
+  for (int ivalue = 0; ivalue < nvalues_per_rank; ++ivalue) {
     sortvec[ivalue] = dist(mt);
   }
 
@@ -36,14 +38,16 @@ int main(int argc, char *argv[]) {
   // To ensure that everything is printed in the correct order, we loop over ranks
   for ( int irank = 0; irank < world_size; irank++) {
     if ( irank == my_rank ) {
-       std::cout << "Values on rank " << my_rank << std::endl;
+       std::cout << "Values on rank " << my_rank << '\n';
        for ( int ivalue = 0; ivalue < nvalues_per_rank; ivalue++) {
-         std::cout << "   Index: " << ivalue << "   Value: " << sortvec[ivalue] << std::endl;
+         std::cout << "   Index: " << ivalue << "   Value: " << sortvec[ivalue] << '\n';
        }
        std::cout << std::flush;
     }
-    // The barrier ensures that the preceeding rank has finished printing before moving to the next
+    // Note: MPI_Barrier does not ensure that I/O buffers have been written, so the result of this is technically undefined
+    // The call to sleep_for should largely ensure that the printing is well behaved
     MPI_Barrier(MPI_COMM_WORLD);
+    std::this_thread::sleep_for(std::chrono::milliseconds(10));
   }
 
   MPI_Finalize();
